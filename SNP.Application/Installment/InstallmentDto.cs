@@ -8,7 +8,7 @@ namespace SNP.Application.Installment
 {
     public class InstallmentDto
     {
-        public DateTime? Date { get; set; }
+        public string? Date { get; set; }
         public decimal? Ammount { get; set; }
         public string Signature { get; set; } = default!;
         public string User { get; set; } = default!;

@@ -15,7 +15,7 @@ namespace SNP.Application.Mapping
         {
             CreateMap<Agreement, InstallmentDto>()
                 .ForMember(dto => dto.Signature, opt => opt.MapFrom(src => src.Case.Signatures))
-                .ForMember(dto => dto.User, opt => opt.MapFrom(src => src.Case.User.Name));
+                .ForMember(dto => dto.Date, opt => opt.MapFrom(src => src.Date.ToString().Replace("00:00:00", "")));
         }
     }
 }

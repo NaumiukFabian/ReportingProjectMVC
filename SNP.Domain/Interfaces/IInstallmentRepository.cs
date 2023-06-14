@@ -11,5 +11,6 @@ namespace SNP.Domain.Interfaces
     {
         Task<IEnumerable<SNP.Domain.Entities.Agreement>> GetAgreements();
         Task<IEnumerable<SNP.Domain.Entities.Agreement>> GetAgreementsByUser(string user);
+        string GetUserNameBySignature(string signature);
     }
 }

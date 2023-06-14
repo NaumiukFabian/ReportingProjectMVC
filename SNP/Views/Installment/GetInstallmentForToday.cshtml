@@ -3,51 +3,23 @@
 @{
     ViewData["Title"] = "GetInstallmentForToday";
 }
+<div class="row">
+    <label class="alert-info">Ilość wszystkich sygnatur: @Model.Select(x => x.Signature).Count()</label>
+    <label class="alert-info">Suma rat: @Model.Select(x => x.Ammount).Sum() zł</label>
+</div>
 
-<h1>GetInstallmentForToday</h1>
+<h1>Harmonogram rat na dzień @DateTime.Today.ToString().Replace("00:00:00","")</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ammount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Signature)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ammount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Signature)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+    @foreach(var item in Model)
+    {
+        <div class="card m-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Sygnatura: @item.Signature</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Data płatności: @item.Date</h6>
+                <p class="card-text">Prowadzący: @item.User</p>
+                <p class="card-text">Wysokość raty: @item.Ammount zł</p>
+            </div>
+        </div>
+    }
+</div>

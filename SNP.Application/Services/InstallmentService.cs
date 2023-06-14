@@ -25,6 +25,10 @@ namespace SNP.Application.Services
         {
             var agreements = await _installmentRepository.GetAgreements();
             var dtos = _mapper.Map<IEnumerable<InstallmentDto>>(agreements);
+            foreach(var d in dtos )
+            {
+                d.User = _installmentRepository.GetUserNameBySignature(d.Signature);
+            }
             return dtos;
         }
 

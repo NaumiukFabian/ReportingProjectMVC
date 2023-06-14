@@ -20,8 +20,8 @@ namespace SNP.Infrastructure.Repositories
         public async Task<IEnumerable<Agreement>> GetAgreements()
         {
             var agreements = await _dbContext.Agreements
-                .Join(_dbContext.Cases, agr => agr.CaseId, cs => cs.Id, (agr, cs) => new {Agreement = agr, Case = cs})
-                .Where(a => a.Agreement.Date == DateTime.Today)   
+                .Join(_dbContext.Cases, agr => agr.CaseId, cs => cs.Id, (agr, cs) => new { Agreement = agr, Case = cs })
+                .Where(a => a.Agreement.Date == DateTime.Today)  
                 .Select(y=> new Agreement
                 {
                     Case = y.Case,
@@ -55,6 +55,17 @@ namespace SNP.Infrastructure.Repositories
             return agreements;
         }
 
-     
+        public string GetUserNameBySignature(string signature) 
+        {
+            int? userId = _dbContext.Cases.FirstOrDefault(c => c.Signatures == signature).LeadingUserId;
+
+            if (userId == null)
+            {
+                return "brak prowadzącego";
+            }
+
+            string userName = _dbContext.Users.FirstOrDefault(u => u.Id == userId).Name;
+            return userName;
+        }
     }
 }
