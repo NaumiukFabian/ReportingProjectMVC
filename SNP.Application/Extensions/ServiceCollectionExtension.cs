@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using SNP.Application.Installment.Queries.GetInstallmentForToday;
 using SNP.Application.Mapping;
-using SNP.Application.Services;
 using SNP.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace SNP.Application.Extensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IInstallmentService, InstallmentService>();
+            services.AddMediatR(typeof(GetInstallmentForTodayQueryHandler));
             services.AddAutoMapper(typeof(InstallmentMappingProfile));
         }
     }

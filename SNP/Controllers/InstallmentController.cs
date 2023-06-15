@@ -1,26 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SNP.Application.Services;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using SNP.Application.Installment.Queries.GetInstallmentForToday;
+using SNP.Application.Installment.Queries.GetInstallmentForTodayByName;
 using SNP.Domain.Interfaces;
 
 namespace SNP.Controllers
 {
     public class InstallmentController : Controller
     {
-        private readonly IInstallmentService _innstallmentService;
-        public InstallmentController(IInstallmentService installmentService)
+        private readonly IMediator _mediator;
+        public InstallmentController(IMediator mediator)
         {
-            _innstallmentService = installmentService;
+            _mediator = mediator;
         }
         public async Task<IActionResult> GetInstallmentForToday()
         {
-            var installments = await _innstallmentService.GetAgreements();
+            var installments = await _mediator.Send(new GetInstallmentForTodayQuery());
             return View(installments);
         }
 
         [Route("/Installment/GetInstallmentForTodayByName/{username}")]
         public async Task<IActionResult> GetInstallmentForTodayByName(string username)
         {
-            var installments = await _innstallmentService.GetAgreementsByName(username);
+            var installments = await _mediator.Send(new GetInstallmentForTodayByNameQuery() { UserName = username });
             return View(installments);
         }
     }

@@ -1,41 +1,32 @@
 ﻿using AutoMapper;
-using SNP.Application.Installment;
-using SNP.Application.Mapping;
-using SNP.Domain.Entities;
+using MediatR;
 using SNP.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SNP.Application.Services
+namespace SNP.Application.Installment.Queries.GetInstallmentForToday
 {
-    public class InstallmentService : IInstallmentService
+    public class GetInstallmentForTodayQueryHandler : IRequestHandler<GetInstallmentForTodayQuery, IEnumerable<InstallmentDto>>
     {
         private readonly IInstallmentRepository _installmentRepository;
         private readonly IMapper _mapper;
-        public InstallmentService(IInstallmentRepository installmentRepository, IMapper mapper)
+        public GetInstallmentForTodayQueryHandler(IInstallmentRepository installmentRepository, IMapper mapper)
         {
             _installmentRepository = installmentRepository;
             _mapper = mapper;
         }
-
-        public async Task<IEnumerable<InstallmentDto>> GetAgreements()
+        public async Task<IEnumerable<InstallmentDto>> Handle(GetInstallmentForTodayQuery request, CancellationToken cancellationToken)
         {
             var agreements = await _installmentRepository.GetAgreements();
             var dtos = _mapper.Map<IEnumerable<InstallmentDto>>(agreements);
-            foreach(var d in dtos )
+            foreach (var d in dtos)
             {
                 d.User = _installmentRepository.GetUserNameBySignature(d.Signature);
             }
-            return dtos;
-        }
-
-        public async Task<IEnumerable<InstallmentDto>> GetAgreementsByName(string usernname)
-        {
-            var agreements = await _installmentRepository.GetAgreementsByUser(usernname);
-            var dtos = _mapper.Map<IEnumerable<InstallmentDto>>(agreements);
             return dtos;
         }
     }
