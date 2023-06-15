@@ -1,0 +1,25 @@
+﻿@model IEnumerable<SNP.Application.Installment.InstallmentDto>
+
+@{
+    ViewData["Title"] = "GetInstallmentForToday";
+}
+<div class="row">
+    <label class="alert-info">Ilość wszystkich sygnatur: @Model.Select(x => x.Signature).Count()</label>
+    <label class="alert-info">Suma rat: @Model.Select(x => x.Ammount).Sum() zł</label>
+</div>
+
+<h1>Harmonogram rat na dzień @DateTime.Today.ToString().Replace("00:00:00","")</h1>
+
+<div class="row">
+    @foreach(var item in Model)
+    {
+        <div class="card m-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Sygnatura: @item.Signature</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Data płatności: @item.Date</h6>
+                <p class="card-text">Prowadzący: @item.User</p>
+                <p class="card-text">Wysokość raty: @item.Ammount zł</p>
+            </div>
+        </div>
+    }
+</div>
