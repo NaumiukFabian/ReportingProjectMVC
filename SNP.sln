@@ -5,11 +5,11 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SNP", "SNP\SNP.csproj", "{566A0CC3-A9CF-4BDE-9EB0-D223D2FA488F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SNP.Domain", "SNP.Domain\SNP.Domain.csproj", "{7900A3B2-30DC-415E-B2DD-951471E711B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SNP.Domain", "SNP.Domain\SNP.Domain.csproj", "{7900A3B2-30DC-415E-B2DD-951471E711B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SNP.Application", "SNP.Application\SNP.Application.csproj", "{44DC02FB-3DA6-4715-B065-EB25DA1B8E98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SNP.Application", "SNP.Application\SNP.Application.csproj", "{44DC02FB-3DA6-4715-B065-EB25DA1B8E98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SNP.Infrastructure", "SNP.Infrastructure\SNP.Infrastructure.csproj", "{18F3B6D8-8141-4C48-AB89-C3042EA4AED7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SNP.Infrastructure", "SNP.Infrastructure\SNP.Infrastructure.csproj", "{18F3B6D8-8141-4C48-AB89-C3042EA4AED7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

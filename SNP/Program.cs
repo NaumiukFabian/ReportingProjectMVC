@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SNP.Application.Extensions;
 using SNP.Infrastructure.Extensions;
 using SNP.Infrastructure.Persistence;
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
