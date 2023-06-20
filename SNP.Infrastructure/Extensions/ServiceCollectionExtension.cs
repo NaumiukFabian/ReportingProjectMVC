@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SNP.Domain.Interfaces;
@@ -18,6 +19,10 @@ namespace SNP.Infrastructure.Extensions
         {
             services.AddDbContext<NewB2cContext>(options => options.UseSqlServer(
                     configuration.GetConnectionString("connstring")));
+
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<NewB2cContext>();
 
             services.AddScoped<IInstallmentRepository, InstallmentRepository>();
         }

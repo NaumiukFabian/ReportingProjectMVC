@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SNP.Domain;
 using SNP.Domain.Entities;
 
 namespace SNP.Infrastructure.Persistence;
 
-public partial class NewB2cContext : DbContext
+public partial class NewB2cContext : IdentityDbContext
 {   
     public NewB2cContext(DbContextOptions<NewB2cContext> options)
         : base(options)
@@ -275,6 +276,8 @@ public partial class NewB2cContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Address>(entity =>
         {
             entity.ToTable("Address", tb =>

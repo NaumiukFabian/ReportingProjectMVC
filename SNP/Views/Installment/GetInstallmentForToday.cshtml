@@ -1,25 +1,112 @@
 ﻿@model IEnumerable<SNP.Application.Installment.InstallmentDto>
 
+
+
 @{
-    ViewData["Title"] = "GetInstallmentForToday";
+    var groupedItems = Model.GroupBy(x => x.User);
 }
-<div class="row">
-    <label class="alert-info">Ilość wszystkich sygnatur: @Model.Select(x => x.Signature).Count()</label>
-    <label class="alert-info">Suma rat: @Model.Select(x => x.Ammount).Sum() zł</label>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <p>Ilość rat</p>
+                </th>
+                <th>
+                    <p>Suma rat</p>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Model.Count()
+                </td>
+                <td>
+                    @Model.Sum(x=>x.Ammount) zł
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
-<h1>Harmonogram rat na dzień @DateTime.Today.ToString().Replace("00:00:00","")</h1>
-
-<div class="row">
-    @foreach(var item in Model)
+<div class="accordion" id="accordionExample">
+    @foreach (var group in groupedItems)
     {
-        <div class="card m-3" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Sygnatura: @item.Signature</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Data płatności: @item.Date</h6>
-                <p class="card-text">Prowadzący: @item.User</p>
-                <p class="card-text">Wysokość raty: @item.Ammount zł</p>
+        var groupId = "collaspe" + group.Key.Replace(" ", "");
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@groupId" aria-expanded="false" aria-controls="collapseOne">
+                    @group.Key
+                </button>
+            </h2>
+            <div id="@groupId" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Data raty
+                                </th>
+                                <th>
+                                    Kwota
+                                </th>
+                                <th>
+                                    Sygnatura
+                                </th>
+                                <th>
+                                    Prowadzący
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in group)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Date
+                                    </td>
+                                    <td>
+                                        @item.Ammount zł
+                                    </td>
+                                    <td>
+                                        @item.Signature
+                                    </td>
+                                    <td>
+                                        @item.User
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Ilość umówionych rat
+                                </th>
+                                <th>
+                                    Suma należności
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @group.Count()
+                                </td>
+                                <td>
+                                    @group.Sum(x=>x.Ammount) zł
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     }
 </div>
+

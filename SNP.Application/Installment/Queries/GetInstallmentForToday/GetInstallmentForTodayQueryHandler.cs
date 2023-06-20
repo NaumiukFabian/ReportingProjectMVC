@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using SNP.Application.ApplicationUser;
 using SNP.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,19 +15,24 @@ namespace SNP.Application.Installment.Queries.GetInstallmentForToday
     {
         private readonly IInstallmentRepository _installmentRepository;
         private readonly IMapper _mapper;
-        public GetInstallmentForTodayQueryHandler(IInstallmentRepository installmentRepository, IMapper mapper)
+        private readonly IUserContext _userContext;
+        public GetInstallmentForTodayQueryHandler(IInstallmentRepository installmentRepository, IMapper mapper, IUserContext userContext)
         {
             _installmentRepository = installmentRepository;
             _mapper = mapper;
+            _userContext = userContext;
         }
+
         public async Task<IEnumerable<InstallmentDto>> Handle(GetInstallmentForTodayQuery request, CancellationToken cancellationToken)
         {
-            var agreements = await _installmentRepository.GetAgreements();
+            var agreements = await _installmentRepository.GetAgreements(request.DateToShow ?? DateTime.Today);
             var dtos = _mapper.Map<IEnumerable<InstallmentDto>>(agreements);
+
             foreach (var d in dtos)
             {
                 d.User = _installmentRepository.GetUserNameBySignature(d.Signature);
             }
+
             return dtos;
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SNP.Models;
 using System.Diagnostics;
 
@@ -10,15 +11,22 @@ namespace SNP.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
+           
             _logger = logger;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult NoAccess()
         {
             return View();
         }

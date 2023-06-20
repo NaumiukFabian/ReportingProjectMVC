@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using SNP.Application.ApplicationUser;
 using SNP.Application.Installment.Queries.GetInstallmentForToday;
 using SNP.Application.Mapping;
 using SNP.Domain.Interfaces;
@@ -17,6 +18,7 @@ namespace SNP.Application.Extensions
         {
             services.AddMediatR(typeof(GetInstallmentForTodayQueryHandler));
             services.AddAutoMapper(typeof(InstallmentMappingProfile));
+            services.AddScoped<IUserContext, UserContext>();
         }
     }
 }

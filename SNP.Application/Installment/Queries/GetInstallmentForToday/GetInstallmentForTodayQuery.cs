@@ -9,5 +9,6 @@ namespace SNP.Application.Installment.Queries.GetInstallmentForToday
 {
     public class GetInstallmentForTodayQuery : IRequest<IEnumerable<InstallmentDto>>
     {
+        public DateTime? DateToShow { get; set; }
     }
 }

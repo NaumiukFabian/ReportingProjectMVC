@@ -9,7 +9,7 @@ namespace SNP.Domain.Interfaces
 {
     public interface IInstallmentRepository
     {
-        Task<IEnumerable<SNP.Domain.Entities.Agreement>> GetAgreements();
+        Task<IEnumerable<SNP.Domain.Entities.Agreement>> GetAgreements(DateTime dayToShow);
         Task<IEnumerable<SNP.Domain.Entities.Agreement>> GetAgreementsByUser(string user);
         string GetUserNameBySignature(string signature);
     }

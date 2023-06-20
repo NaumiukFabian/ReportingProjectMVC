@@ -17,11 +17,11 @@ namespace SNP.Infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
-        public async Task<IEnumerable<Agreement>> GetAgreements()
+        public async Task<IEnumerable<Agreement>> GetAgreements(DateTime dayToShow)
         {
             var agreements = await _dbContext.Agreements
                 .Join(_dbContext.Cases, agr => agr.CaseId, cs => cs.Id, (agr, cs) => new { Agreement = agr, Case = cs })
-                .Where(a => a.Agreement.Date == DateTime.Today)  
+                .Where(a => a.Agreement.Date == dayToShow && a.Agreement.Case.StateId != 8 && a.Agreement.Case.StateId != 5)
                 .Select(y=> new Agreement
                 {
                     Case = y.Case,

@@ -1,0 +1,31 @@
+﻿@using SNP.Application.Installment.Queries.GetInstallmentForToday;
+@using SNP.Application.Installment;
+@model SNP.Application.Installment.Queries.GetInstallmentForToday.GetInstallmentForTodayQuery
+
+@{
+    ViewData["Title"] = "GetView";
+}
+<div>
+    <h1>Harmonogram rat na dzień</h1>
+    <h2 id="titleH2"></h2>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="GetView">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Wybierz datę do wczytania</label>
+                <input id="DateToShow" asp-for="DateToShow" class="form-control" onchange="update()" />
+                <span asp-validation-for="DateToShow" class="text-danger"></span>
+            </div>
+            <button id="load" class="btn btn-primary m-2" type="button" onclick="loadPartialView()">Wczytaj</button>
+        </form>    
+    </div>
+</div>
+
+<div id="partialViewContainer" class="m-3"></div>
+
+   <script src="~/js/UpdateFunction.js"></script>
+
+
